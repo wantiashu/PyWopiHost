@@ -1,0 +1,7 @@
+Django
+requests
+lxml
+django-extensions
+Werkzeug
+pyOpenSSL
+daphne

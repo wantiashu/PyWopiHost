@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collabora Online Integration</title>
+</head>
+<body>
+
+<form action="" method="post" target="">
+  {% csrf_token %}
+  <p style="display:inline">
+  {{ form_name }}{{ form_wopi_file_dir }}
+  {{ form_file_selection }}{{ form_collabora_server }}
+  </p>
+  <b>&nbsp&nbsp</b>
+  <input type="submit" name="submit" value="Load Collabora Online" />
+</form>
+
+<!-- <div style="display: none"> -->
+<div style="display: none">
+  <form action="{{ wopi_url }}" enctype="multipart/form-data" method="post" target="collabora-online-viewer" id="collabora-submit-form">
+    {% csrf_token %}
+    <input name="access_token" value="{{ access_token }}" type="text" id="access-token"/>
+    <input type="submit" value="" />
+  </form>
+</div>
+
+<iframe id="collabora-online-viewer" name="collabora-online-viewer" style="width:95%;height:80%;position:absolute;" allow="clipboard-read *; clipboard-write *">
+</iframe>
+
+<script type="text/ecmascript">
+    function loadDocument() {
+        if ('{{ wopi_url }}' === '')
+            return;
+        var formElem = document.getElementById("collabora-submit-form");
+        if (!formElem) {
+            console.log('error: submit form not found');
+            return;
+        }
+        console.log('loading ... ' + formElem.action);
+        formElem.submit();
+    }
+
+    loadDocument();
+</script>
+</body>
+</html>
